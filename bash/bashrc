@@ -1,0 +1,83 @@
+export LANG='ja_JP.UTF-8'
+
+function _update_ps1() {
+    PS1="$(~/Library/Python/3.9/bin/powerline-shell $?)"
+}
+
+if [ "$TERM" != "linux" ]; then
+    PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
+fi
+
+completions=(
+  git
+  composer
+  ssh
+)
+
+aliases=(
+  general
+)
+
+plugins=(
+  git
+  bashmarks
+)
+
+# PATH
+
+export PATH="/Applications/Julia-1.6.app/Contents/Resources/julia/bin:$PATH"
+export PATH="/usr/local/opt/qt/bin:$PATH"
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+export PATH=~/.local/bin/:$PATH
+export PATH="/usr/local/sbin:$PATH"
+
+
+# エイリアス
+alias rm="trash"
+
+alias ls='ls -G'
+alias ll='ls -lG'
+alias la='ls -laG'
+alias ..='cd ..'
+#alias juplab='cd ~/jupyter && jupyter lab'
+alias __sp="source /Users/br171440/simple_proxy.sh set"
+alias __usp="source /Users/br171440/simple_proxy.sh unset"
+alias screen="/usr/local/Cellar/screen/4.8.0/bin/screen"
+alias emacs="/usr/local/bin/emacs -nw" 
+alias py="python3"
+alias __gp=gp_set
+
+function gp_set(){
+    git add .
+    git commit -m "$1"
+    git push
+}
+
+function gre () {
+    grep -E $1 -rl $2
+}
+
+function __imgcat_for_tmux() {
+    # @See: https://qastack.jp/unix/88296/get-vertical-cursor-position
+    get_cursor_position() {
+        old_settings=$(stty -g) || exit
+        stty -icanon -echo min 0 time 3 || exit
+        printf '\033[6n'
+        pos=$(dd count=1 2> /dev/null)
+        pos=${pos%R*}
+        pos=${pos##*\[}
+        x=${pos##*;} y=${pos%%;*}
+        stty "$old_settings"
+    }
+    command imgcat "$1"
+    [ $? -ne 0 ] && return
+    [ ! "$TMUX" ] && return
+    get_cursor_position
+    # 2行分画像が残ってしまうためtputで再描画判定させて消す
+    read && tput cup `expr $y - 2` 0
+}
+
+alias todo="python3 /Users/br171440/todo/todo_py.py task"
+
+neofetch --gap -23

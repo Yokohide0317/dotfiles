@@ -1,0 +1,81 @@
+function _update_ps1() {
+    PS1="$(~/Library/Python/3.8/bin/powerline-shell $?)"
+}
+
+if [ "$TERM" != "linux" ]; then
+    PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
+fi
+
+completions=(
+  git
+  composer
+  ssh
+)
+aliases=(
+  general
+)
+plugins=(
+  git
+  bashmarks
+)
+
+# brew
+alias arm="exec arch -arch arm64e /bin/zsh --login"
+alias x64="exec arch -arch x86_64 /bin/zsh --login"
+
+
+
+
+
+
+
+# functions
+
+## Easy git push
+function gp_set(){
+    git add .
+    git commit -m "$1"
+    git push
+}
+
+
+
+
+
+# PATH
+export PATH="/Users/br171440/Library/Python/3.8/bin"
+export PATH="/bin:/usr/bin:/usr/local/bin:${PATH}"
+export PATH=$PATH:/opt/homebrew/bin
+export PATH=$PATH:/usr/sbin/
+export PATH="/opt/homebrew/opt/make/libexec/gnubin:$PATH"
+
+
+
+# alias
+alias bash="/opt/homebrew/bin/bash"
+alias ls='ls -G'
+alias ll='ls -lG'
+alias la='ls -laG'
+alias ..='cd ..'
+alias intel="arch -x86_64" # intel brew "command"
+alias rm="trash"
+alias __gp=gp_set
+
+
+## yokoscripts
+yokoscripts=/Users/br171440/workspace/yokoscripts
+alias __qr="/opt/homebrew/bin/bash ${yokoscripts}/qr_make.sh"
+alias __sp="source ${yokoscripts}/simple_proxy.sh set"
+alias __usp="source ${yokoscripts}/simple_proxy.sh unset"
+alias __juplab="${yokoscripts}/start_jupyter.sh"
+alias __kanji="${yokoscripts}/kanji.sh"
+alias todo="/opt/homebrew/opt/python@3.10/bin/python3 ${yokoscripts}/_simplenote.py"
+
+
+# startup
+neofetch --iterm2 ~/.config/neofetch/img/nyafetch.png --gap -23
+
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+
+
+
