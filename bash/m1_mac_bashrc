@@ -32,7 +32,7 @@ export PATH="/bin:/usr/bin:/usr/local/bin:${PATH}"
 export PATH=$PATH:/opt/homebrew/bin
 export PATH=$PATH:/usr/sbin/
 export PATH=/opt/homebrew/opt/make/libexec/gnubin:$PATH
-
+export PATH=$HOME/miniforge3/bin:$PATH
 
 
 # alias
