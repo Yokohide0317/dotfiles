@@ -12,7 +12,7 @@ plugins=(
 )
 
 # brew
-alias arm="exec arch -arch arm64e /bin/zsh --login"
+alias arm="exec arch -arch arm64e bash --login"
 alias x64="exec arch -arch x86_64 /bin/zsh --login"
 
 
@@ -32,7 +32,7 @@ export PATH="/bin:/usr/bin:/usr/local/bin:${PATH}"
 export PATH=$PATH:/opt/homebrew/bin
 export PATH=$PATH:/usr/sbin/
 export PATH=/opt/homebrew/opt/make/libexec/gnubin:$PATH
-
+export PATH=$HOME/Library/Python/3.8/bin:$PATH
 
 
 # alias
@@ -45,21 +45,21 @@ alias intel="arch -x86_64" # intel brew "command"
 alias rm="trash"
 alias __gp=gp_set
 alias __yokoenv="conda activate yokoenv"
-alias __line="/Users/br171440/workspace/yokoscripts/shell_line.sh"
-alias __pokemon='/Users/br171440/.pokemon-icat/pokemon-icat.sh "-g 5"'
+alias __line="$HOME/workspace/yokoscripts/shell_line.sh"
+alias __pokemon='$HOME/.pokemon-icat/pokemon-icat.sh "-g 5"'
 
 ## yokoscripts
-yokoscripts=/Users/br171440/workspace/yokoscripts
+yokoscripts=$HOME/workspace/yokoscripts
 alias __qr="/opt/homebrew/bin/bash ${yokoscripts}/qr_make.sh"
 alias __sp="source ${yokoscripts}/simple_proxy.sh set"
 alias __usp="source ${yokoscripts}/simple_proxy.sh unset"
 
 
 
-eval "$(pyenv init -)"
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
+#eval "$(pyenv init -)"
+#if command -v pyenv 1>/dev/null 2>&1; then
+#  eval "$(pyenv init -)"
+#fi
 
 # lsの代わりにexaを使う
 if [[ $(command -v exa) ]]; then
@@ -83,9 +83,16 @@ alias cat='bat'
 alias CAT='/bin/cat'
 alias LS='/bin/ls'
 
+alias kk="kitty +kitten"
+
 # Starship
 eval "$(starship init bash)"
 
 # batのtheme
 export BAT_THEME="Visual Studio Dark+"
+
+# BEGIN_KITTY_SHELL_INTEGRATION
+if test -n "$KITTY_INSTALLATION_DIR" -a -e "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; then source "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; fi
+# END_KITTY_SHELL_INTEGRATION
+
 

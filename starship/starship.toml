@@ -46,9 +46,9 @@ style = "bold white"
 #format = "$all_status$ahead_behind"
 
 [python]
-#format = "[ $version]($style) "
-#style = "bold green"
-disabled = true
+format = "[]($style) "
+style = "bold green"
+disabled = false
 
 [hostname]
 ssh_only = true
