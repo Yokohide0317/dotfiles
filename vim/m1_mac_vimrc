@@ -3,7 +3,7 @@
 if 0 | endif
 
 if &compatible
-  set nocompatible               " Be iMproved
+  set nocompatible  " Be iMproved
 endif
 
 " Required:
@@ -19,7 +19,13 @@ NeoBundle 'vim-airline/vim-airline'
 NeoBundle 'vim-airline/vim-airline-themes'
 NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle "cocopon/iceberg.vim"
+" 背景を透明に
+NeoBundle "miyakogi/seiya.vim"
+let g:seiya_auto_enable=1
+" Rustの自動整形
 NeoBundle 'rust-lang/rust.vim'
+let g:seiya_auto_enable=1
+
 
 " Markdown
 NeoBundle 'godlygeek/tabular'
@@ -39,8 +45,6 @@ filetype plugin indent on
 " If there are uninstalled bundles found on startup,
 " this will conveniently prompt you to install them.
 NeoBundleCheck
-
-
 
 nnoremap <Leader>c :<C-u>setlocal cursorline! cursorcolumn!<CR>
 set autoindent

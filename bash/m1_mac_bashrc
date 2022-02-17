@@ -33,7 +33,9 @@ export PATH=$PATH:/opt/homebrew/bin
 export PATH=$PATH:/usr/sbin/
 export PATH=/opt/homebrew/opt/make/libexec/gnubin:$PATH
 export PATH=$HOME/miniforge3/bin:$PATH
-
+export PATH=$HOME/.cargo/bin:$PATH
+export PATH=$HOME/.nodebrew/current/bin:$PATH
+export NODEBREW_ROOT=/opt/homebrew/var/nodebrew
 
 # alias
 alias bash="/opt/homebrew/bin/bash"
@@ -96,6 +98,9 @@ alias cat='bat'
 alias CAT='/bin/cat'
 alias LS='/bin/ls'
 
+alias kk="kitty +kitten"
+alias ssh="kk ssh"
+
 # Starship
 eval "$(starship init bash)"
 
@@ -105,3 +110,4 @@ export BAT_THEME="Visual Studio Dark+"
 # BEGIN_KITTY_SHELL_INTEGRATION
 if test -n "$KITTY_INSTALLATION_DIR" -a -e "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; then source "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; fi
 # END_KITTY_SHELL_INTEGRATION
+. "$HOME/.cargo/env"
