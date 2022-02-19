@@ -7,7 +7,7 @@ filetype off
 
 "dein Scripts-----------------------------
 if &compatible
-  set nocompatible               " Be iMproved
+  set nocompatible  " Be iMproved
 endif
 
 " Required:
@@ -26,6 +26,7 @@ call dein#add('vim-airline/vim-airline')
 call dein#add('vim-airline/vim-airline-themes')
 call dein#add("cocopon/iceberg.vim")
 colorscheme iceberg
+
 
 " 背景を透明に
 call dein#add("miyakogi/seiya.vim")
