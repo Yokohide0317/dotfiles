@@ -19,7 +19,13 @@ NeoBundle 'vim-airline/vim-airline'
 NeoBundle 'vim-airline/vim-airline-themes'
 NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle "cocopon/iceberg.vim"
+" 背景を透明に
+NeoBundle "miyakogi/seiya.vim"
+let g:seiya_auto_enable=1
+" Rustの自動整形
 NeoBundle 'rust-lang/rust.vim'
+let g:seiya_auto_enable=1
+
 
 " Markdown
 NeoBundle 'godlygeek/tabular'

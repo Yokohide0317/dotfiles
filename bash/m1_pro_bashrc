@@ -33,7 +33,7 @@ export PATH=$PATH:/opt/homebrew/bin
 export PATH=$PATH:/usr/sbin/
 export PATH=/opt/homebrew/opt/make/libexec/gnubin:$PATH
 export PATH=$HOME/Library/Python/3.8/bin:$PATH
-
+export PATH=$HOME/.cargo/bin:$PATH
 
 # alias
 alias bash="/opt/homebrew/bin/bash"
@@ -84,6 +84,7 @@ alias CAT='/bin/cat'
 alias LS='/bin/ls'
 
 alias kk="kitty +kitten"
+alias ssh="kk ssh"
 
 # Starship
 eval "$(starship init bash)"
