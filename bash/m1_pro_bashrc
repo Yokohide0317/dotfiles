@@ -30,13 +30,15 @@ function gp_set(){
 # PATH
 export PATH="/bin:/usr/bin:/usr/local/bin:${PATH}"
 export PATH=$PATH:/opt/homebrew/bin
+export PATH=$PATH:/opt/homebrew/Cellar/vim/
 export PATH=$PATH:/usr/sbin/
 export PATH=/opt/homebrew/opt/make/libexec/gnubin:$PATH
 export PATH=$HOME/Library/Python/3.8/bin:$PATH
-
+export PATH=$HOME/.cargo/bin:$PATH
 
 # alias
 alias bash="/opt/homebrew/bin/bash"
+alias vim="/opt/homebrew/Cellar/vim/8.2.4400/bin/vim"
 #alias ls='ls -G'
 #alias ll='ls -lG'
 #alias la='ls -laG'
@@ -84,6 +86,7 @@ alias CAT='/bin/cat'
 alias LS='/bin/ls'
 
 alias kk="kitty +kitten"
+alias ssh="kk ssh"
 
 # Starship
 eval "$(starship init bash)"

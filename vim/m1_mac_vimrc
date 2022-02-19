@@ -1,58 +1,80 @@
-
-" Neobundle
-if 0 | endif
-
-if &compatible
-  set nocompatible  " Be iMproved
-endif
-
-" Required:
-set runtimepath+=~/.vim/bundle/neobundle.vim/
-
-" Required:
-call neobundle#begin(expand('~/.vim/bundle/'))
-
-" Let NeoBundle manage NeoBundle
-" Required:
-
-NeoBundle 'vim-airline/vim-airline'
-NeoBundle 'vim-airline/vim-airline-themes'
-NeoBundleFetch 'Shougo/neobundle.vim'
-NeoBundle "cocopon/iceberg.vim"
-" 背景を透明に
-NeoBundle "miyakogi/seiya.vim"
-let g:seiya_auto_enable=1
-" Rustの自動整形
-NeoBundle 'rust-lang/rust.vim'
-let g:seiya_auto_enable=1
-
-
-" Markdown
-NeoBundle 'godlygeek/tabular'
-NeoBundle 'plasticboy/vim-markdown'
-NeoBundle 'previm/previm'
-let g:vim_markdown_folding_disabled = 1
-let g:previm_enable_realtime = 1
-let g:previm_open_cmd = 'open -a Brave\ Browser'
-" 
-
-
-call neobundle#end()
-
-" Required:
-filetype plugin indent on
-
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck
-
 nnoremap <Leader>c :<C-u>setlocal cursorline! cursorcolumn!<CR>
 set autoindent
 set smartindent
 
 " Set up Vundle
 filetype off
-set rtp+=~/.vim/bundle/vundle/
+
+"dein Scripts-----------------------------
+if &compatible
+  set nocompatible  " Be iMproved
+endif
+
+" Required:
+set runtimepath+=$HOME/.cache/dein/repos/github.com/Shougo/dein.vim
+
+" Required:
+call dein#begin('$HOME/.cache/dein')
+
+" Let dein manage dein
+" Required:
+call dein#add('$HOME/.cache/dein/repos/github.com/Shougo/dein.vim')
+
+" Bundleのインストール
+" Add or remove your plugins here like this:
+call dein#add('vim-airline/vim-airline')
+call dein#add('vim-airline/vim-airline-themes')
+call dein#add("cocopon/iceberg.vim")
+colorscheme iceberg
+
+
+" 背景を透明に
+call dein#add("miyakogi/seiya.vim")
+let g:seiya_auto_enable=1
+" Rustの自動整形
+call dein#add('rust-lang/rust.vim')
+let g:seiya_auto_enable=1
+
+" markdown用
+call dein#add('godlygeek/tabular')
+call dein#add('plasticboy/vim-markdown')
+call dein#add('previm/previm')
+let g:vim_markdown_folding_disabled = 1
+let g:previm_enable_realtime = 1
+let g:previm_open_cmd = 'open -a Brave\ Browser'
+
+" 補完機能
+"構文チェックを行う。
+call dein#add('scrooloose/syntastic')
+"() 色付け:
+call dein#add('itchyny/lightline.vim')
+
+" コードの自動補間(neocomplete・neosnippet・neosnippet-snippets)
+if has('lua')
+   "自動補間
+    call dein#add('Shougo/neocomplete.vim')
+    " スニペットの補完機能
+    call dein#add('Shougo/neosnippet')
+    " スニペット集
+    call dein#add('Shougo/neosnippet-snippets')
+endif
+
+" Required:
+call dein#end()
+
+" Required:
+filetype plugin indent on
+syntax enable
+
+" If you want to install not installed plugins on startup.
+if dein#check_install()
+  call dein#install()
+endif
+
+
+"End dein Scripts-------------------------
+
+
 
 
 " Only open nerdtree if no file was specified on startup
@@ -198,8 +220,6 @@ set directory=~/.vim/tmp/swap//   " swap files
 set backup
 set noswapfile
 
-
-colorscheme iceberg
 "set background=dark
 
 " Make any custom changes here. If this file doesn't exists, the 
@@ -214,3 +234,31 @@ inoremap <expr><CR>  pumvisible() ? "<C-y>" : "<CR>"
 inoremap <expr><C-n> pumvisible() ? "<Down>" : "<C-n>"
 inoremap <expr><C-p> pumvisible() ? "<Up>" : "<C-p>"
 
+
+
+if !exists('g:neocomplete#force_omni_input_patterns')
+        let g:neocomplete#force_omni_input_patterns = {}
+endif
+
+let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
+
+inoremap <expr><BS> neocomplete#smart_close_popup()."<C-h>"
+
+" エンターキーで補完候補の確定. スニペットの展開もエンターキーで確定
+imap <expr><CR> neosnippet#expandable() ? "<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "<C-y>" : "<CR>"
+" タブキーで補完候補の選択. スニペット内のジャンプもタブキーでジャンプ
+imap <expr><TAB> pumvisible() ? "<C-n>" : neosnippet#jumpable() ? "<Plug>(neosnippet_expand_or_jump)" : "<TAB>"
+
+
+" カーソル
+if has('vim_starting')
+    " 挿入モード時に非点滅の縦棒タイプのカーソル
+    let &t_SI .= "\e[6 q"
+    " ノーマルモード時に非点滅のブロックタイプのカーソル
+    let &t_EI .= "\e[2 q"
+    " 置換モード時に非点滅の下線タイプのカーソル
+    let &t_SR .= "\e[4 q"
+endif
+
+set statusline=%<%f\ %h%m%r%{kite#statusline()}%=%-14.(%l,%c%V%)\ %P
+set laststatus=2  " always display the status line
