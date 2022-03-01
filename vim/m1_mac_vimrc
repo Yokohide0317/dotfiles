@@ -1,8 +1,9 @@
 nnoremap <Leader>c :<C-u>setlocal cursorline! cursorcolumn!<CR>
 set autoindent
 set smartindent
+set foldmethod=marker
+set foldmarker={{{,}}}
 
-" Set up Vundle
 filetype off
 
 "dein Scripts-----------------------------
@@ -20,20 +21,20 @@ call dein#begin('$HOME/.cache/dein')
 " Required:
 call dein#add('$HOME/.cache/dein/repos/github.com/Shougo/dein.vim')
 
-" Bundleのインストール
+" {{{プラグインのインストール
 " Add or remove your plugins here like this:
 call dein#add('vim-airline/vim-airline')
 call dein#add('vim-airline/vim-airline-themes')
 call dein#add("cocopon/iceberg.vim")
 colorscheme iceberg
-
+" }}}
 
 " 背景を透明に
 call dein#add("miyakogi/seiya.vim")
 let g:seiya_auto_enable=1
 " Rustの自動整形
 call dein#add('rust-lang/rust.vim')
-let g:seiya_auto_enable=1
+let g:rustfmt_autosave = 1
 
 " markdown用
 call dein#add('godlygeek/tabular')
@@ -114,10 +115,8 @@ let g:airline_theme = 'bubblegum'
 " Ignore files we don't want to index
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn
-
 " custom starting default search folder
 let g:ctrlp_map = '<c-p>'
-
 " SuperTab options 
 let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
@@ -127,76 +126,31 @@ let g:SuperTabClosePreviewOnPopupClose = 1
 " Tagbar Options
 let g:tagbar_show_visibility = 1
 let g:tagbar_expand = 1
-
-" ============================================================================ "
-" ===                           EDITING OPTIONS                            === "
-" ============================================================================ "
-
-" Line Numbers
 set nu
 set showmatch matchtime=1
-" Tabs as 4 spaces
 set expandtab
 set softtabstop=4
 set shiftwidth=4
-
-" Backspace works as it damn well should!
 set backspace=indent,eol,start
-
-" Search highlighting
 set hlsearch
-
-" Syntax highlighting and colors
 syntax enable
-
-" Enable matching pairs for match-it
 filetype plugin on
-
-" Clear highlighted search terms while preserving history
 nmap <silent> <leader>/ :nohlsearch<CR>
-
 set nolist
-
-" incremental search
 set incsearch
-
-" ignore case when searching
 set ignorecase
-
-" if the search string has an upper case letter in it, the search will be case sensitive
 set smartcase
-
 set noswapfile
-
 hi Comment ctermfg=3
-
-" ============================================================================ "
-" ===                                 MISC.                                === "
-" ============================================================================ "
-" After writing to any .vimrc, source that file
 au! BufWritePost .vimrc so %
-
-" Svn blame highlighted lines in visual mode (freaking awesome)
 vmap gl :<C-U>!svn blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p <CR>
-
-" Allows you to save files you opened without write permissions
 cmap w!! w !sudo tee %
-
-" remove menu bar
 set guioptions-=m 
-
-" remove toolbar
 :set guioptions-=T
-
 set encoding=utf-8
 scriptencoding utf-8
-
-" Autocomplete in menu will list all available options that match
 set wildmenu
-
-" allow for tab completion in the command line
 set wildmode=list:longest
-
 autocmd BufRead,BufNewFile *.go set filetype=go
 autocmd BufRead,BufNewFile *.go set makeprg=go\ build\ %
 
