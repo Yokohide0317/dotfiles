@@ -33,8 +33,8 @@ colorscheme iceberg
 call dein#add("miyakogi/seiya.vim")
 let g:seiya_auto_enable=1
 " Rustの自動整形
-call dein#add('rust-lang/rust.vim')
-let g:rustfmt_autosave = 1
+" call dein#add('rust-lang/rust.vim')
+" let g:rustfmt_autosave = 1
 
 " markdown用
 call dein#add('godlygeek/tabular')

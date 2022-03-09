@@ -1,3 +1,45 @@
+
+ARCH=$(uname -m)
+if [[ $ARCH == arm64 ]]; then
+    echo "Current Architecture: $ARCH"
+    eval $(/opt/homebrew/bin/brew shellenv)
+
+    # conda
+    alias conda="$HOME/miniforge3_arm64/condabin/conda"
+    __conda_setup="$('$HOME/miniforge3_arm64/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+    if [ $? -eq 0 ]; then
+      eval "$__conda_setup"
+    else
+      if [ -f "$HOME/miniforge3_arm64/etc/profile.d/conda.sh" ]; then
+        . "$HOME/miniforge3_arm64/etc/profile.d/conda.sh"
+      else
+        export PATH="$HOME/miniforge3_arm64/bin:$PATH"
+      fi
+    fi
+    unset __conda_setup
+
+elif [[ $ARCH == x86_64 ]]; then
+    echo "Current Architecture: $ARCH"
+    eval $(/usr/local/bin/brew shellenv)
+
+    # conda
+    alias conda="$HOME/miniforge3_x86_64/condabin/conda"
+    __conda_setup="$('$HOME/miniforge3_x86_64/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+    if [ $? -eq 0 ]; then
+      eval "$__conda_setup"
+    else
+      if [ -f "$HOME/miniforge3_x86_64/etc/profile.d/conda.sh" ]; then
+        . "$HOME/miniforge3_x86_64/etc/profile.d/conda.sh"
+      else
+        export PATH="$HOME/miniforge3_x86_64/bin:$PATH"
+      fi
+    fi
+   unset __conda_setup
+
+fi
+
+
+
 # init
 completions=(
   git
@@ -38,6 +80,7 @@ alias __yokoenv="conda activate yokoenv"
 alias __line="/Users/br171440/workspace/yokoscripts/shell_line.sh"
 alias __pokemon='/Users/br171440/.pokemon-icat/pokemon-icat.sh "-g 5"'
 alias bashrc="source ~/.bashrc"
+alias dc="docker-compose"
 
 ## yokoscripts
 yokoscripts="/Users/br171440/workspace/yokoscripts"
@@ -46,6 +89,7 @@ alias __sp="source ${yokoscripts}/simple_proxy.sh set"
 alias __usp="source ${yokoscripts}/simple_proxy.sh unset"
 alias __tensor="source /Users/br171440/tensorflow_macos_venv/bin/activate"
 alias __weather="/opt/homebrew/bin/bash ${yokoscripts}/nago_weather.sh"
+alias __rrange="${yokoscripts}/check_range"
 
 ## lsの代わりにexaを使う
 if [[ $(command -v exa) ]]; then
@@ -89,3 +133,7 @@ if test -n "$KITTY_INSTALLATION_DIR" -a -e "$KITTY_INSTALLATION_DIR/shell-integr
 # END_KITTY_SHELL_INTEGRATION
 
 . "$HOME/.cargo/env"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
