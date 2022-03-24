@@ -37,12 +37,12 @@ let g:seiya_auto_enable=1
 " let g:rustfmt_autosave = 1
 
 " markdown用
-call dein#add('godlygeek/tabular')
-call dein#add('plasticboy/vim-markdown')
-call dein#add('previm/previm')
-let g:vim_markdown_folding_disabled = 1
-let g:previm_enable_realtime = 1
-let g:previm_open_cmd = 'open -a Brave\ Browser'
+" call dein#add('godlygeek/tabular')
+" call dein#add('plasticboy/vim-markdown')
+" call dein#add('previm/previm')
+" let g:vim_markdown_folding_disabled = 1
+" let g:previm_enable_realtime = 1
+" let g:previm_open_cmd = 'open -a Brave\ Browser'
 
 " 補完機能
 "構文チェックを行う。
