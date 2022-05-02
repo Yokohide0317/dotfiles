@@ -1,9 +1,9 @@
-ln -fs "$HOME/dotfiles/starship/starship.toml" "$HOME/.config/starship.toml"
+ln -fs ~/dotfiles/starship/starship.toml ~/.config/starship.toml
 
-ln -s "$HOME/dotfiles/neofetch/" "$HOME/.config/neofetch"
+ln -fs ~/dotfiles/neofetch/g ~/.config/neofetch
 
-ln -fs "$HOME/dotfiles/vim/m1_mac_vimrc" "$HOME/.vimrc"
+ln -fs ~/dotfiles/vim/vimrc ~/.vimrc
+ln -fs ~/dotfiles/vim/settings ~/.vim/
+ln -fs ~/dotfiles/vim/colors ~/.vim/
 
-ln -fs "$HOME/dotfiles/powerline-shell/" "$HOME/.config/powerline-shell"
-
-ln -fs "$HOME/dotfiles/kitty/" "$HOME/.config/kitty"
+ln -fs ~/dotfiles/kitty/ ~/.config/kitty
