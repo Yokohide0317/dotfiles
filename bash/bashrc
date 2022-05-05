@@ -6,7 +6,7 @@ MHOMEBREW="/opt/homebrew/bin/brew"
 
 eval $($HOMEBREW shellenv)
 alias brew=$HOMEBREW
-alias mbrew=arch -arm64 $MHOMEBREW
+alias mbrew="arch -arm64 $MHOMEBREW"
 
 # conda
 alias conda="$HOME/.miniforge3/condabin/conda"
