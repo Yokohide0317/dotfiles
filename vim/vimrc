@@ -1,5 +1,5 @@
-" runtime! settings/init/*.vim
-" runtime! settings/additional/*.vim
+
+" Base {{{
 syntax enable
 
 set autoindent
@@ -105,10 +105,12 @@ if has('vim_starting')
     " 置換モード時に非点滅の下線タイプのカーソル
     let &t_SR .= "\e[4 q"
 endif
+" }}}
 
-set statusline=%<%f\ %h%m%r%{kite#statusline()}%=%-14.(%l,%c%V%)\ %P
-set laststatus=2  " always display the status line
-" dein Script
+" set statusline=%<%f\ %h%m%r%{kite#statusline()}%=%-14.(%l,%c%V%)\ %P
+
+" Jetpack {{{
+" jetpack Script
 if &compatible
   set nocompatible
 endif
@@ -118,15 +120,14 @@ call jetpack#begin()
 " 背景を透明に
 call jetpack#add("miyakogi/seiya.vim")
 
-" call jetpack#add("4513ECHO/vim-colors-hatsunemiku")
-
-call jetpack#add('vim-airline/vim-airline')
-call jetpack#add('vim-airline/vim-airline-themes')
+" Themes
+call jetpack#add("4513ECHO/vim-colors-hatsunemiku")
+call jetpack#add("cocopon/iceberg.vim")
 
 "構文チェックを行う。
 call jetpack#add('scrooloose/syntastic')
 
-"() 色付け:
+"Airlineの代わり
 call jetpack#add('itchyny/lightline.vim')
 
 call jetpack#end()
@@ -138,23 +139,32 @@ for name in jetpack#names()
     break
   endif
 endfor
+" }}}
+
+" プラグインの有効化 {{{
 " 背景を透明に
 let g:seiya_auto_enable=1
-
-" Rustの自動整形
-" let g:rustfmt_autosave = 1
 
 " Required:
 filetype plugin indent on
 syntax enable
 
 " let g:kite_supported_languages = ['*']
+" }}}
 
-"Vim-airline Options
+" テーマ {{{
+" lightline Options
 set noshowmode                    " -- Hide default mode indicator
 set laststatus=2                  " -- Show airline even when only one split is open
-let g:airline_powerline_fonts = 1 " -- Allow fancy separators
-let g:airline#extensions#syntastic#enabled = 1
+let g:lightline = { 'colorscheme': 'hatsunemiku',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ }
 
-colorscheme iceberg
-let g:airline_theme = 'hatsunemiku'
+colorscheme hatsunemiku
+" }}}
