@@ -39,7 +39,7 @@ plugins=(
 
 
 # {{{PATH
-export PATH=/bin:/usr/bin:/usr/local/bin:${PATH}
+export PATH=/bin:/usr/bin:/usr/local/bin:$PATH
 #export PATH=$PATH:/opt/homebrew/bin
 export PATH=/usr/sbin/:$PATH
 #export PATH=/opt/homebrew/opt/make/libexec/gnubin:$PATH
@@ -59,8 +59,8 @@ alias rm="trash"
 alias __gp=gp_set
 alias bashrc="source ~/.bashrc"
 alias dc="docker-compose"
-alias __sp="source ~/.yokoscripts/sp.sh"
-alias __usp="source ~/.yokoscripts/usp.sh"
+alias __sp="source ~/.yokoscripts/simple_proxy.sh set"
+alias __usp="source ~/.yokoscripts/simple_proxy.sh unset"
 
 ## lsの代わりにexaを使う
 if [[ $(command -v exa) ]]; then
@@ -83,6 +83,8 @@ alias cat='bat'
 export BAT_THEME="Visual Studio Dark+"
 alias CAT='/bin/cat'
 alias LS='/bin/ls'
+alias vim="/usr/local/bin/vim"
+
 ## Kitty
 alias kk="kitty +kitten"
 alias ssh="kk ssh"
@@ -99,7 +101,7 @@ eval "$(starship init bash)"
 if test -n "$KITTY_INSTALLATION_DIR" -a -e "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; then source "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; fi
 # END_KITTY_SHELL_INTEGRATION
 
-. "$HOME/.cargo/env"
+# . "$HOME/.cargo/env"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
