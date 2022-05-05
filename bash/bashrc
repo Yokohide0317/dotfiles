@@ -1,83 +1,108 @@
-export LANG='ja_JP.UTF-8'
 
-function _update_ps1() {
-    PS1="$(~/Library/Python/3.9/bin/powerline-shell $?)"
-}
+ARCH=$(uname -m)
+echo "Current Architecture: $ARCH"
+HOMEBREW="/usr/local/bin/brew"
+MHOMEBREW="/opt/homebrew/bin/brew"
 
-if [ "$TERM" != "linux" ]; then
-    PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
+eval $($HOMEBREW shellenv)
+alias brew=$HOMEBREW
+alias mbrew=arch -arm64 $MHOMEBREW
+
+# conda
+alias conda="$HOME/.miniforge3/condabin/conda"
+__conda_setup="$('$HOME/.miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+  eval "$__conda_setup"
+else
+  if [ -f "$HOME/.miniforge3/etc/profile.d/conda.sh" ]; then
+    . "$HOME/.miniforge3/etc/profile.d/conda.sh"
+  else
+    export PATH="$HOME/.miniforge3/bin:$PATH"
+  fi
 fi
+unset __conda_setup
 
+
+# init
 completions=(
   git
   composer
   ssh
 )
-
 aliases=(
   general
 )
-
 plugins=(
   git
   bashmarks
 )
 
-# PATH
 
-export PATH="/Applications/Julia-1.6.app/Contents/Resources/julia/bin:$PATH"
-export PATH="/usr/local/opt/qt/bin:$PATH"
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-export PATH=~/.local/bin/:$PATH
-export PATH="/usr/local/sbin:$PATH"
+# {{{PATH
+export PATH=/bin:/usr/bin:/usr/local/bin:$PATH
+#export PATH=$PATH:/opt/homebrew/bin
+export PATH=/usr/sbin/:$PATH
+#export PATH=/opt/homebrew/opt/make/libexec/gnubin:$PATH
+export PATH=$HOME/.miniforge3/bin:$PATH
+export PATH=$HOME/.cargo/bin:$PATH
+export PATH=$HOME/.nodebrew/current/bin:$PATH
+export PATH=$HOME/.yokoscripts:$PATH
 
+export NODEBREW_ROOT=/opt/homebrew/var/nodebrew
+# }}}
 
-# エイリアス
-alias rm="trash"
-
-alias ls='ls -G'
-alias ll='ls -lG'
-alias la='ls -laG'
+# {{{alias
+alias bash="/usr/local/bin/bash"
 alias ..='cd ..'
-#alias juplab='cd ~/jupyter && jupyter lab'
-alias __sp="source /Users/br171440/simple_proxy.sh set"
-alias __usp="source /Users/br171440/simple_proxy.sh unset"
-alias screen="/usr/local/Cellar/screen/4.8.0/bin/screen"
-alias emacs="/usr/local/bin/emacs -nw" 
-alias py="python3"
+alias intel="arch -x86_64" # intel brew "command"
+alias rm="trash"
 alias __gp=gp_set
+alias bashrc="source ~/.bashrc"
+alias dc="docker-compose"
+alias __sp="source ~/.yokoscripts/simple_proxy.sh set"
+alias __usp="source ~/.yokoscripts/simple_proxy.sh unset"
 
-function gp_set(){
-    git add .
-    git commit -m "$1"
-    git push
-}
+## lsの代わりにexaを使う
+if [[ $(command -v exa) ]]; then
+  alias e='exa --icons --git'
+  alias l=e
+  alias ls=e
+  alias ea='exa -a --icons --git'
+  alias la=ea
+  alias ee='exa -aahl --icons --git'
+  alias ll=ee
+  alias et='exa -T -L 3 -a -I "node_modules|.git|.cache" --icons'
+  alias lt=et
+  alias eta='exa -T -a -I "node_modules|.git|.cache" --color=always --icons | less -r'
+  alias lta=eta
+  alias l='clear && ls'
+fi
 
-function gre () {
-    grep -E $1 -rl $2
-}
+## catの代わりにbat
+alias cat='bat'
+export BAT_THEME="Visual Studio Dark+"
+alias CAT='/bin/cat'
+alias LS='/bin/ls'
+alias vim="/usr/local/bin/vim"
 
-function __imgcat_for_tmux() {
-    # @See: https://qastack.jp/unix/88296/get-vertical-cursor-position
-    get_cursor_position() {
-        old_settings=$(stty -g) || exit
-        stty -icanon -echo min 0 time 3 || exit
-        printf '\033[6n'
-        pos=$(dd count=1 2> /dev/null)
-        pos=${pos%R*}
-        pos=${pos##*\[}
-        x=${pos##*;} y=${pos%%;*}
-        stty "$old_settings"
-    }
-    command imgcat "$1"
-    [ $? -ne 0 ] && return
-    [ ! "$TMUX" ] && return
-    get_cursor_position
-    # 2行分画像が残ってしまうためtputで再描画判定させて消す
-    read && tput cup `expr $y - 2` 0
-}
+## Kitty
+alias kk="kitty +kitten"
+alias ssh="kk ssh"
 
-alias todo="python3 /Users/br171440/todo/todo_py.py task"
+# }}}
 
-neofetch --gap -23
+
+
+# Starship
+eval "$(starship init bash)"
+
+
+# BEGIN_KITTY_SHELL_INTEGRATION
+if test -n "$KITTY_INSTALLATION_DIR" -a -e "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; then source "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; fi
+# END_KITTY_SHELL_INTEGRATION
+
+# . "$HOME/.cargo/env"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
