@@ -1,6 +1,7 @@
 if [ -f ~/.bashrc ] ; then
-. ~/.bashrc
+    . ~/.bashrc
 fi
+
 [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
 
 # ssh_config
@@ -9,19 +10,10 @@ function _compreply_ssh(){
 }
 complete -F _compreply_ssh ssh
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('$HOME/.miniforge3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "$HOME/.miniforge3/etc/profile.d/conda.sh" ]; then
-        . "$HOME/.miniforge3/etc/profile.d/conda.sh"
-    else
-        export PATH="$HOME/.miniforge3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
 . "$HOME/.cargo/env"
+
+
+alias bashrc="source ~/.bashrc"
+alias x86_64="source ~/.bashrc intel"
+alias m1="source ~/.bashrc m1"
+

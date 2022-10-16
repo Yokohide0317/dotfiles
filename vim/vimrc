@@ -108,6 +108,8 @@ endif
 " }}}
 
 " set statusline=%<%f\ %h%m%r%{kite#statusline()}%=%-14.(%l,%c%V%)\ %P
+" 新しいウィンドウを右に開く
+set splitright
 
 " Jetpack {{{
 " jetpack Script
@@ -130,6 +132,9 @@ call jetpack#add('scrooloose/syntastic')
 "Airlineの代わり
 call jetpack#add('itchyny/lightline.vim')
 
+" Markdown Prev
+call jetpack#add('skanehira/preview-markdown.vim')
+
 call jetpack#end()
 
 
@@ -144,6 +149,9 @@ endfor
 " プラグインの有効化 {{{
 " 背景を透明に
 let g:seiya_auto_enable=1
+
+" Prev を垂直に
+let g:preview_markdown_vertical = 1
 
 " Required:
 filetype plugin indent on

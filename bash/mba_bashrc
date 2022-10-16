@@ -26,9 +26,7 @@ plugins=(
 
 # {{{PATH
 export PATH=/bin:/usr/bin:/usr/local/bin:$PATH
-#export PATH=$PATH:/opt/homebrew/bin
 export PATH=/usr/sbin/:$PATH
-#export PATH=/opt/homebrew/opt/make/libexec/gnubin:$PATH
 export PATH=$HOME/.miniforge3/bin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
 export PATH=$HOME/.nodebrew/current/bin:$PATH
@@ -81,3 +79,46 @@ export NVM_DIR="$HOME/.nvm"
 source ~/.yokoscripts/myenvs.sh
 alias pokemon="~/.mambaforge/bin/pokemon -r kanto johto hoenn sinnoh unova -d"
 neofetch --ascii_distro arch
+
+
+if [ $1==="m1" ]; then
+  # >>> conda initialize >>>
+  # !! Contents within this block are managed by 'conda init' !!
+  __conda_setup="$('/Users/br171440/.mambaforge_arm64/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+  if [ $? -eq 0 ]; then
+      eval "$__conda_setup"
+  else
+      if [ -f "/Users/br171440/.mambaforge_arm64/etc/profile.d/conda.sh" ]; then
+          . "/Users/br171440/.mambaforge_arm64/etc/profile.d/conda.sh"
+      else
+          export PATH="/Users/br171440/.mambaforge_arm64/bin:$PATH"
+      fi
+  fi
+  unset __conda_setup
+
+  if [ -f "/Users/br171440/.mambaforge_arm64/etc/profile.d/mamba.sh" ]; then
+      . "/Users/br171440/.mambaforge_arm64/etc/profile.d/mamba.sh"
+  fi
+  # <<< conda initialize <<<
+
+else
+  # >>> conda initialize >>>
+  # !! Contents within this block are managed by 'conda init' !!
+  __conda_setup="$('/Users/br171440/.mambaforge3_x86-64/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+  if [ $? -eq 0 ]; then
+      eval "$__conda_setup"
+  else
+      if [ -f "/Users/br171440/.mambaforge3_x86-64/etc/profile.d/conda.sh" ]; then
+          . "/Users/br171440/.mambaforge3_x86-64/etc/profile.d/conda.sh"
+      else
+          export PATH="/Users/br171440/.mambaforge3_x86-64/bin:$PATH"
+      fi
+  fi
+  unset __conda_setup
+
+  if [ -f "/Users/br171440/.mambaforge3_x86-64/etc/profile.d/mamba.sh" ]; then
+      . "/Users/br171440/.mambaforge3_x86-64/etc/profile.d/mamba.sh"
+  fi
+  # <<< conda initialize <<<
+fi
+
