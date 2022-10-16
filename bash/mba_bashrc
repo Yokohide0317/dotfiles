@@ -81,7 +81,9 @@ alias pokemon="~/.mambaforge/bin/pokemon -r kanto johto hoenn sinnoh unova -d"
 neofetch --ascii_distro arch
 
 
-if [ $1==="m1" ]; then
+ARCH_ENV=$1
+if [ "$ARCH_ENV" = "m1" ]; then
+    echo "M1 env"
   # >>> conda initialize >>>
   # !! Contents within this block are managed by 'conda init' !!
   __conda_setup="$('/Users/br171440/.mambaforge_arm64/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
@@ -102,6 +104,7 @@ if [ $1==="m1" ]; then
   # <<< conda initialize <<<
 
 else
+    echo "Intel env"
   # >>> conda initialize >>>
   # !! Contents within this block are managed by 'conda init' !!
   __conda_setup="$('/Users/br171440/.mambaforge3_x86-64/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
