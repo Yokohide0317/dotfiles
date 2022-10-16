@@ -1,0 +1,125 @@
+#!/bin/bash
+
+ARCH=$(uname -m)
+echo "Current Architecture: $ARCH"
+HOMEBREW="/usr/local/bin/brew"
+MHOMEBREW="/opt/homebrew/bin/brew"
+
+eval $($HOMEBREW shellenv)
+alias brew=$HOMEBREW
+alias mbrew="arch -arm64 $MHOMEBREW"
+
+
+# init
+completions=(
+  git
+  composer
+  ssh
+)
+aliases=(
+  general
+)
+plugins=(
+  git
+  bashmarks
+)
+
+
+# {{{PATH
+export PATH=/bin:/usr/bin:/usr/local/bin:$PATH
+export PATH=/usr/sbin/:$PATH
+export PATH=$HOME/.miniforge3/bin:$PATH
+export PATH=$HOME/.cargo/bin:$PATH
+export PATH=$HOME/.nodebrew/current/bin:$PATH
+export PATH=$HOME/.yokoscripts:$PATH
+export PATH=$HOME/go/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
+export PATH=$HOME/Library/Python/3.8/bin:$PATH
+
+export NODEBREW_ROOT=/opt/homebrew/var/nodebrew
+# }}}
+
+# {{{alias
+alias bash="/usr/local/bin/bash"
+alias code="/opt/homebrew/bin/code"
+alias ..='cd ..'
+alias intel="arch -x86_64" # intel brew "command"
+alias rm="trash"
+alias __gp=gp_set
+alias bashrc="source ~/.bashrc"
+alias dc="docker-compose"
+alias __sp="source ~/.yokoscripts/simple_proxy.sh set"
+alias __usp="source ~/.yokoscripts/simple_proxy.sh unset"
+alias LS='/bin/ls'
+
+## lsの代わりにexaを使う
+if [[ $(command -v exa) ]]; then
+  alias e='exa --icons --git'
+  alias l=e
+  alias ls=e
+  alias ea='exa -a --icons --git'
+  alias la=ea
+  alias ee='exa -aahl --icons --git'
+  alias ll=ee
+  alias et='exa -T -L 3 -a -I "node_modules|.git|.cache" --icons'
+  alias lt=et
+  alias eta='exa -T -a -I "node_modules|.git|.cache" --color=always --icons | less -r'
+  alias lta=eta
+fi
+
+# }}}
+
+
+# Starship
+eval "$(starship init bash)"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+source ~/.yokoscripts/myenvs.sh
+alias pokemon="~/.mambaforge/bin/pokemon -r kanto johto hoenn sinnoh unova -d"
+neofetch --ascii_distro arch
+
+
+ARCH_ENV=$1
+if [ "$ARCH_ENV" = "m1" ]; then
+    export -n conda
+
+    echo "Change conda rule to M1"
+    __conda_setup="$('/Users/yokoda/.mambaforge_arm64/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+    if [ $? -eq 0 ]; then
+        eval "$__conda_setup"
+    else
+        if [ -f "/Users/yokoda/.mambaforge_arm64/etc/profile.d/conda.sh" ]; then
+            . "/Users/yokoda/.mambaforge_arm64/etc/profile.d/conda.sh"
+        else
+            export PATH="/Users/yokoda/.mambaforge_arm64/bin:$PATH"
+        fi
+    fi
+    unset __conda_setup
+
+    if [ -f "/Users/yokoda/.mambaforge_arm64/etc/profile.d/mamba.sh" ]; then
+        . "/Users/yokoda/.mambaforge_arm64/etc/profile.d/mamba.sh"
+    fi
+
+else
+    export -n conda
+    echo "Chage conda rule to Intel"
+    __conda_setup="$('/Users/yokoda/.mambaforge_x86-64/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+    if [ $? -eq 0 ]; then
+        eval "$__conda_setup"
+    else
+        if [ -f "/Users/yokoda/.mambaforge_x86-64/etc/profile.d/conda.sh" ]; then
+            . "/Users/yokoda/.mambaforge_x86-64/etc/profile.d/conda.sh"
+        else
+            export PATH="/Users/yokoda/.mambaforge_x86-64/bin:$PATH"
+        fi
+    fi
+    unset __conda_setup
+
+    if [ -f "/Users/yokoda/.mambaforge_x86-64/etc/profile.d/mamba.sh" ]; then
+        . "/Users/yokoda/.mambaforge_x86-64/etc/profile.d/mamba.sh"
+    fi
+fi
+
