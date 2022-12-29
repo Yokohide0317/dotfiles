@@ -1,5 +1,8 @@
 
 " Base {{{
+set shiftwidth=4
+
+
 syntax enable
 
 set autoindent
