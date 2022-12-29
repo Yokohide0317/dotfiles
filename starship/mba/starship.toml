@@ -1,0 +1,75 @@
+# シェルプロンプトの間に空行を追加します
+add_newline = true
+
+format = """
+[┌─ ](bold purple)$all
+[└─>](bold purple) 
+"""
+
+#[username]
+#style_user = "#f0f0f0"
+
+# makes prompt a single line
+[line_break]
+disabled = true
+
+[cmd_duration]
+min_time = 1_000  # Show command duration over 10,000 milliseconds (= 10 sec)
+format = " 祥[$duration](bold blue)"
+
+# デフォルトで$allになっているので、
+# 不必要なものたちはdisableする。
+[directory]
+style = "bold #96c8c8"
+truncation_length = 100
+truncate_to_repo = false
+
+[git_branch]
+format = " [[| ](bold white) $branch]($style) " 
+style = "bold yellow"
+
+[git_commit]
+commit_hash_length = 8
+style = "bold white"
+
+[git_state]
+#progress_divider = " of "
+
+[git_status]
+#conflicted = "⚔️ "
+#ahead = "🏎️ 💨 ×${count}"
+#behind = "🐢 ×${count}"
+#diverged = "🔱 🏎️ 💨 ×${ahead_count} 🐢 ×${behind_count}"
+#untracked = "🛤️  ×${count}"
+#stashed = "📦 "
+#modified = "📝 ×${count}"
+#staged = "🗃️  ×${count}"
+#renamed = "📛 ×${count}"
+#deleted = "🗑️  ×${count}"
+#style = "bright-white"
+#format = "$all_status$ahead_behind"
+
+[python]
+format = "[]($style) "
+style = "bold green"
+disabled = false
+
+[hostname]
+ssh_only = true
+format = "[$hostname]($style)"
+trim_at = "-"
+#style = "bold dimmed red"
+style = "bold #f0f0f0"
+disabled = false
+
+[character]
+error_symbol = "[X](bold red) "
+
+[package]
+disabled = true
+
+[aws]
+disabled = true
+
+[gcloud]
+disabled = true
