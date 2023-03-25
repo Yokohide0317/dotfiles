@@ -54,6 +54,7 @@ alias __sp="source ~/.yokoscripts/bin/simple_proxy.sh set"
 alias __usp="source ~/.yokoscripts/bin/simple_proxy.sh unset"
 alias LS='/bin/ls'
 alias m1do='arch -arm64'
+alias vim='nvim'
 
 ## lsの代わりにexaを使う
 if [[ $(command -v exa) ]]; then
