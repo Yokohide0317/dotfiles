@@ -53,6 +53,8 @@ alias dc="docker-compose"
 alias __sp="source ~/.yokoscripts/bin/simple_proxy.sh set"
 alias __usp="source ~/.yokoscripts/bin/simple_proxy.sh unset"
 alias LS='/bin/ls'
+alias m1do='arch -arm64'
+alias vim='nvim'
 
 ## lsの代わりにexaを使う
 if [[ $(command -v exa) ]]; then
@@ -68,6 +70,23 @@ if [[ $(command -v exa) ]]; then
   alias eta='exa -T -a -I "node_modules|.git|.cache" --color=always --icons | less -r'
   alias lta=eta
 fi
+
+alias lk='_look'
+_look() {
+  if [ "$1" = "-a" ]; then
+    local find_result=$(find . -type f -o -type l)
+  else
+    local find_result=$(find . -maxdepth 1 -type f -o -type l)
+  fi
+  local target_files=($(echo "$find_result" \
+    | sed 's/\.\///g' \
+    | grep -v -e '.jpg' -e '.gif' -e '.png' -e '.jpeg' \
+    | sort -r \
+    | fzf-tmux -p80% --select-1 --prompt 'vim ' --preview 'bat --color always {}' --preview-window=right:70%
+  ))
+  [ "$target_files" = "" ] && return
+  vim -p ${target_files[@]}
+}
 
 # }}}
 
