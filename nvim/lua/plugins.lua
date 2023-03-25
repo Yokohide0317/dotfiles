@@ -5,6 +5,8 @@ require'packer'.startup(function()
   use'tpope/vim-fugitive'
   use'tpope/vim-repeat'
 
+  use "nvim-lua/plenary.nvim"
+
   -- opt オプションを付けると遅延読み込みになります。
   -- この場合は opt だけで読み込む契機を指定していないため、
   -- `packadd` コマンドを叩かない限り読み込まれることはありません。
@@ -57,4 +59,5 @@ require'packer'.startup(function()
   }
 
   use { 'folke/tokyonight.nvim' }
+
 end)
