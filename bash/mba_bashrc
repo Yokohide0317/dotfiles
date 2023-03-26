@@ -1,4 +1,5 @@
 
+# Homebrew{{{
 ARCH=$(uname -m)
 echo "Current Architecture: $ARCH"
 HOMEBREW="/usr/local/bin/brew"
@@ -7,7 +8,7 @@ MHOMEBREW="/opt/homebrew/bin/brew"
 eval $($HOMEBREW shellenv)
 alias brew=$HOMEBREW
 alias mbrew="arch -arm64 $MHOMEBREW"
-
+# }}}
 
 # init
 completions=(
@@ -30,10 +31,11 @@ export PATH=/usr/sbin/:$PATH
 export PATH=$HOME/.miniforge3/bin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
 export PATH=$HOME/.nodebrew/current/bin:$PATH
-export PATH=$HOME/.yokoscripts:$PATH
+export PATH=$HOME/.yokoscripts/bin:$PATH
 export PATH=$HOME/go/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
-export PATH=/Users/br171440/Library/Python/3.8/bin:$PATH
+export PATH=$HOME/Library/Python/3.8/bin:$PATH
+export PATH=$HOME/.yokoscripts/SketchyBar/bin:$PATH
 
 export NODEBREW_ROOT=/opt/homebrew/var/nodebrew
 # }}}
@@ -47,9 +49,11 @@ alias rm="trash"
 alias __gp=gp_set
 alias bashrc="source ~/.bashrc"
 alias dc="docker-compose"
-alias __sp="source ~/.yokoscripts/simple_proxy.sh set"
-alias __usp="source ~/.yokoscripts/simple_proxy.sh unset"
+alias __sp="source ~/.yokoscripts/bin/simple_proxy.sh set"
+alias __usp="source ~/.yokoscripts/bin/simple_proxy.sh unset"
 alias LS='/bin/ls'
+alias fasterq-dump="finch run -t --rm -v $PWD:/output:rw -w /output ncbi/sra-tools fasterq-dump"
+alias m1do="arch -arm64"
 
 ## lsの代わりにexaを使う
 if [[ $(command -v exa) ]]; then
@@ -76,11 +80,10 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-source ~/.yokoscripts/myenvs.sh
-alias pokemon="~/.mambaforge/bin/pokemon -r kanto johto hoenn sinnoh unova -d"
+source ~/.yokoscripts/bin/myenvs.sh
 neofetch --ascii_distro arch
 
-
+# conda{{{
 ARCH_ENV=$1
 if [ "$ARCH_ENV" = "m1" ]; then
     echo "M1 env"
@@ -124,4 +127,13 @@ else
   fi
   # <<< conda initialize <<<
 fi
+# }}}
 
+# GO{{{
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+# }}}
+
+if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then
+    . $HOME/.nix-profile/etc/profile.d/nix.sh;
+fi

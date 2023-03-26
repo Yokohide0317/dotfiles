@@ -17,3 +17,8 @@ alias bashrc="source ~/.bashrc"
 alias x86_64="source ~/.bashrc intel"
 alias m1="source ~/.bashrc m1"
 
+
+complete -C /Users/br171440/go/bin/gocomplete go
+
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+
