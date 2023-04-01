@@ -155,6 +155,7 @@ alias rm="trash"
 alias bashrc="source ~/.bashrc"
 alias kinto.sh='/bin/bash -c "$(wget -qO- https://raw.githubusercontent.com/rbreaves/kinto/HEAD/install/linux.sh || curl -fsSL https://raw.githubusercontent.com/rbreaves/kinto/HEAD/install/linux.sh)"'
 alias open="xdg-open"
+alias vim="nvim.appimage"
 
 ## lsの代わりにexaを使う
 if [[ $(command -v exa) ]]; then
