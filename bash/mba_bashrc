@@ -54,6 +54,10 @@ alias __usp="source ~/.yokoscripts/bin/simple_proxy.sh unset"
 alias LS='/bin/ls'
 alias fasterq-dump="finch run -t --rm -v $PWD:/output:rw -w /output ncbi/sra-tools fasterq-dump"
 alias m1do="arch -arm64"
+alias vim="nvim"
+alias ma="mamba activate"
+alias mda="mamba deactivate"
+alias update_brew="brew update; brew upgrade; mbrew update; mbrew upgrade"
 
 ## lsの代わりにexaを使う
 if [[ $(command -v exa) ]]; then
